@@ -2,7 +2,7 @@ package ma.ests.biblio.controller;
 
 import ma.ests.biblio.model.CompteUtilisateur;
 import ma.ests.biblio.service.LoginService;
-import ma.ests.biblio.view.DashboardView; // (Sera créé juste après)
+import ma.ests.biblio.view.DashboardView;
 import ma.ests.biblio.view.LoginView;
 import javafx.stage.Stage;
 

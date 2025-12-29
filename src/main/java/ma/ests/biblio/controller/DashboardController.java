@@ -1,5 +1,3 @@
-
-
 package ma.ests.biblio.controller;
 
 import javafx.scene.control.*;
@@ -38,8 +36,15 @@ public class DashboardController {
         new LivreForm(s, livre).showAndWait();
         view.refreshTable();
     }
-
     public void handleSupprimerLivre(Livre livre) {
+
+        if (livreDAO.isLivreEmprunte(livre.getIsbn())) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Impossible de supprimer un livre déjà emprunté.");
+            a.show();
+            return;
+        }
+
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
                 "Supprimer ce livre ?", ButtonType.OK, ButtonType.CANCEL);
 
@@ -57,12 +62,10 @@ public class DashboardController {
             String res = empruntService.emprunter(adherentId, livre.getIsbn());
             alert(res);
             view.refreshTable();
-        } else if (adherentId == null && form.showAndGetAdherentId() != null) {
         } else {
-            alert("Emprunt annulé ou adhérent non trouvé.");
+            alert("Emprunt annulé.");
         }
     }
-
     private void alert(String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setContentText(msg);
